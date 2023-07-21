@@ -5,12 +5,119 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/nullStyle.css">
-    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
-    <title>Lesson </title>
+    <title>Lesson 11. Homework 23</title>
 </head>
 <body>
-    <script src="../bootstrap/js/bootstrap.min.js"></script>
+    <div class="wrapper">
+        <nav class="navigation ">
+            <div class="navigation__logo">
+                <a href=".">
+                    <span class="logo">ONLINE WEB SUPER STORE</span>
+                </a>
+            </div>
+            <div class="user_mobile user">
+                <div class="img-container">
+                    <img src="./img/user__photo.jpg" alt="Your photo" title="Your photo" class="user__photo">
+                </div>
+                <div class="user__info">
+                    <p class="user__name">Evano</p>
+                </div>
+            </div>
+            <ul class="navigation__menu">
+            </ul>
+        </nav>
+        <section class="container">
+            <section class="main">
+                <div class="main__board board">
+                    <div class="board__panel">
+                        <div class="board__heading">
+                            <div>
+                                <h2 class="board_name"></h2> <!-- Category name-->
+                            </div>
+                            <form action="#" class="board__search" >
+                                <button type="submit"><img src="./img/icon/board_search.png" alt="search" title="click to start searching"></button>
+                                <input type="search" name="search" id="search" placeholder="Search">
+                            </form>
+                        </div>
+                        <div class="board__footer">
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="details">
+                <section class="cart" id="cart">
+                    <div>
+                        <button class="cart" style="width: 6em; height: 6em; border-radius: 50%; object-fit: contain; text-align: center;">
+                            <img src="img/icon/shopping-cart.png" width="30em" height='30em' alt="Your cart" >
+                            <span class="cart__quantity" id="goodsQuantity">0</span>
+                        </button>
+                    </div>
+                </section>
+                <section class="info" id="info">
+                
+                </section>
+                <section class="order" id="order">
+                    <form action="#" method="get">
+                        <label for="name" class="required sfwef">
+                            Name: <input type="text" name="name" id="name">
+                        </label>
+                        <label for="surname">
+                            Surname: <input type="text" name="surname" id="surname"> 
+                        </label>
+                        <label for="name">
+                            Last name: <input type="text" name="name" id="lastName">
+                        </label>
+                        <label for="phone" class="required">
+                            Phone: <input type="tel" name="phone" id="phone">
+                        </label>
+                        <select name="city" id="city">
+                            <option value="odesa">Odesa</option>
+                            <option value="kyiv">Kyiv</option>
+                            <option value="lviv">Lviv</option>
+                            <option value="kharkiv">Kharkiv</option>
+                            <option value="dnipro">Dnipro</option>
+                            <option value="zaporizhzhia">Zaporizhzhia</option>
+                            <option value="ivano-frankivsk">Ivano-Frankivsk</option>
+                            <option value="lutsk">Lutsk</option>
+                            <option value="mykolaiv">Mykolaiv</option>
+                            <option value="chernivtsi">Chernivtsi</option>
+                            <option value="vinnytsia">Vinnytsia</option>
+                            <option value="zhytomyr">Zhytomyr</option>
+                            <option value="rivne">Rivne</option>
+                            <option value="kherson">Kherson</option>
+                            <option value="sumy">Sumy</option>
+                            <option value="ternopil">Ternopil</option>
+                            <option value="chernihiv">Chernihiv</option>
+                            <option value="other">Other</option>
+                        </select>
+                        <label for="terminal" class="required">
+                            Nova Poshta terminal: <input type="text" name="terminal" id="terminal">
+                        </label>
+                        <p>Payment way</p>
+                        <div>
+                                Postpaid: <input type="radio" name="payment" id="postpaid">
+                                Card: <input type="radio" name="payment" id="card" checked>
+                        </div>
+                        <label for="quantity">
+                            Quantity: <input type="number" name="quantity" id="quantity" value="1">
+                        </label>
+                        <label for="comment">
+                            <p>Your comment</p>
+                            <textarea name="comment" id="comment"></textarea>
+                        </label>
+                        <label for="dontCall">
+                            I`m sure in my order. Don`t call me.
+                            <input type="checkbox" name="dontCall" id="dontCall">
+                        </label>
+                        <p class="error" id="error"></p>
+                        <input type="submit" value="Confirm order">
+
+                    </form> 
+                </section>
+            </section>
+        </section>
+    </div>
     <script src="js/script.js"></script>
 </body>
 </html>
