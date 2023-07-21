@@ -25,7 +25,7 @@
                     <p class="user__name">Evano</p>
                 </div>
             </div>
-            <div class="navigation__item">My orders</div>
+            <div class="navigation__item" id="ordersButton">My orders</div>
             <ul class="navigation__menu">
                 
             </ul>
@@ -33,7 +33,7 @@
         <section class="container">
             <section class="main">
                 <div class="main__board board">
-                    <section class="orders">
+                    <section class="orders" id="ordersBlock" style="display: none">
                         <div class="accordion accordion-flush" id="ordersAccordion">
                             <div class="accordion-item">
                               <h2 class="accordion-header" id="flush-headingOne">
@@ -53,10 +53,6 @@
                             <div>
                                 <h2 class="board_name"></h2> <!-- Category name-->
                             </div>
-                            <form action="#" class="board__search" >
-                                <button type="submit"><img src="./img/icon/board_search.png" alt="search" title="click to start searching"></button>
-                                <input type="search" name="search" id="search" placeholder="Search">
-                            </form>
                         </div>
 
                     </div>

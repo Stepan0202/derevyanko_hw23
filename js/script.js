@@ -98,12 +98,17 @@ let orders = [];
 const formContainer = document.querySelector('#order');
 const form = formContainer.querySelector('form');
 const main = document.querySelector('.main');
+const ordersBlock = document.querySelector('#ordersBlock');
 const accordion = document.querySelector('#ordersAccordion');
+const ordersButton = document.querySelector('#ordersButton')
 formContainer.style.display = "none";
 
+ordersButton.addEventListener('click', showOrdersHistory);
 window.onload = () => {
     createCategories(categories, document.querySelector('.navigation__menu'));
+    updateOrders();
 }
+
 function createCategories(categories, parent){
     categories.forEach(categ => {
         const category = document.createElement('div');
@@ -173,6 +178,7 @@ function createGoods(goodsList, key){
 
 function showGoods(event){
     main.style.display = "block";
+    ordersBlock.style.display = "none";
     if (currentCategory) currentCategory.style.display = 'none';
     const id = '#' + event.target.dataset.id;
     const goods = document.querySelector(id);
@@ -314,17 +320,18 @@ function saveOrder(){
 
 function updateOrders(){
     accordion.innerHTML = "";
+    
     orders = JSON.parse(localStorage.getItem('orders'));
-    orders.forEach(el =>{
+    orders.forEach((el,index) =>{
         const accEl = `
-        <div class="accordion-item">
-        <h2 class="accordion-header" id="flush-headingOne">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-            <div>${el.date}</div><div>${el.price}</div>
+        <div class="accordion-item" style="width: 500px">
+        <h2 class="accordion-header" id="flush-heading${index}">
+          <button class="accordion-button collapsed d-flex justify-content-between" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse${index}" aria-expanded="false" aria-controls="flush-collapse${index}">
+            <div>${el.date}</div> <div>${el.price}</div> <div><img src="img/icon/delete.png" width="30em" height="30em"></div>
           </button>
         </h2>
-        <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-          <div class="accordion-body">P${document.querySelector(`[data-id=${el.goods.id}]`)}</div>
+        <div id="flush-collapse${index}" class="accordion-collapse collapse" aria-labelledby="flush-heading${index}" data-bs-parent="#accordionFlushExample">
+          <div class="accordion-body">${document.querySelector(`[data-id='${el.goods.id}']`)}</div>
         </div>
       </div>
         `;
@@ -333,7 +340,11 @@ function updateOrders(){
    
 }
 
-
+function showOrdersHistory(){
+    updateOrders();
+    if(currentCategory) currentCategory.style.display = "none";
+    ordersBlock.style.display = "block"
+}
 
 
 
