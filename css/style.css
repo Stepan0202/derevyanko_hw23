@@ -66,7 +66,7 @@ h2{
     letter-spacing: -0.14px;
     gap: 22px;
     padding: 0 28px 0 7px;
-    margin-bottom: 609px;
+
 }
 .navigation__item {
     width: 257px;
@@ -432,7 +432,7 @@ h2{
     }
     .orderTable__row {
         display: flex;
-        min-width: 1000px;
+        min-width: 600px;
         justify-content: space-between;
         border-bottom: 1px solid black;
         gap: 2em
@@ -456,4 +456,7 @@ h2{
         height: 1.2em;
         border-radius: 50%;
 
+    }
+    .accordion-item::after{
+        content: none;
     }

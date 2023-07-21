@@ -94,16 +94,13 @@ const categories = [
 ]
 let currentCategory;
 let currentGood;
-let cart = JSON.parse(localStorage.getItem('cart'));
+let orders = [];
 const formContainer = document.querySelector('#order');
 const form = formContainer.querySelector('form');
 const main = document.querySelector('.main');
-const cartEl = document.querySelector('#cart');
-const cartCounter = document.querySelector('#goodsQuantity')
-
-cartEl.addEventListener('click', showCart);
+const accordion = document.querySelector('#ordersAccordion');
 formContainer.style.display = "none";
-cartCounter.textContent = cart.length;
+
 window.onload = () => {
     createCategories(categories, document.querySelector('.navigation__menu'));
 }
@@ -115,13 +112,10 @@ function createCategories(categories, parent){
         category.classList.add('navigation__item');
         parent.appendChild(category);
         createGoods(categ.goods, categ.name);
-
     });
     parent.addEventListener('click', showGoods);
 }
-function capitalizeFirstLetter(word) {
-    return word[0].toUpperCase() + word.slice(1);
-}
+
 function createGoods(goodsList, key){
     const goodsGrid = document.createElement('section');
     const panel = document.querySelector('.board__panel');
@@ -146,8 +140,8 @@ function createGoods(goodsList, key){
         card.appendChild(oldPrice);
         card.appendChild(newPrice);
         card.appendChild(buyButton);
-        card.dataset.id = good.id;
 
+        card.dataset.id = good.id;
         imgContainer.classList.add('imageContainer');
         imgContainer.appendChild(img);
         img.setAttribute('src', good.img);
@@ -177,7 +171,7 @@ function createGoods(goodsList, key){
     })
 }
 
-function showGoods(event){ 
+function showGoods(event){
     main.style.display = "block";
     if (currentCategory) currentCategory.style.display = 'none';
     const id = '#' + event.target.dataset.id;
@@ -187,9 +181,6 @@ function showGoods(event){
     currentCategory = goods;
     goods.style.display = 'grid';
     boardName.textContent = event.target.dataset.id.toUpperCase();
-}
-function hideGoods(){
-    if(currentCategory) currentCategory.style.display = 'none';
 }
 function showDetails(event){
     const info = document.querySelector('.info');
@@ -202,7 +193,7 @@ function showDetails(event){
     description.style.display = "inline-block";
     button.style.display = "block";
     button.dataset.goodInfo = [targetGood.querySelector('.title').textContent, targetGood.querySelector('.newPrice').textContent];
-    button.addEventListener('click', addToCart);
+    button.addEventListener('click', buy);
 }
 function showError(msg){
     document.querySelector('#error').innerHTML += msg + '<br>';
@@ -226,7 +217,6 @@ function showOrder(fields){
         orderTable.appendChild(orderRow);
         orderRow.appendChild(orderData);
         orderRow.appendChild(orderValue);
-        console.log(fields[i]);
         switch(fields[i].type) {
             case 'input':      
                 orderData.textContent = fields[i].id;
@@ -240,16 +230,14 @@ function showOrder(fields){
                 break;
             default:
                 orderData.textContent = fields[i].id;
-                orderValue.textContent = fields[i].value;
-        
-                
+                orderValue.textContent = fields[i].value;   
         }
-
     }
 }
 function buy(event){
+    
+    // addToCart(event.target);
     event.preventDefault();
-    console.log(currentGood);
     formContainer.style.display = "block";
  
     const info = event.target.dataset.goodInfo.split(',');
@@ -281,6 +269,8 @@ function validateForm(event){
     }
     form.style.display = 'none';
     currentGood.style.display = 'none';
+    
+    saveOrder(fields);
     showOrder(fields);
 }
 function processRadio(radioNodeList, type){
@@ -296,45 +286,57 @@ function processRadio(radioNodeList, type){
     return checked;
 
 }
-function addToCart(){
-    const goodObj = getGoodsByParametr('id', currentGood.dataset.id);
-    cart.push(goodObj);
-    localStorage.setItem('cart', JSON.stringify(cart));
-    console.log(localStorage.getItem('cart'));
-}
-function showCart(){
-    hideGoods();
-    const cartTable = document.createElement('section');
-    const tableHeader = document.createElement('div');
-    tableHeader.classList.add('orderTable__row');
-    cartTable.classList.add("orderTable");
-    
-    tableHeader.innerHTML = `
-    <div>Name</div>
-    <div>Date</div>
-    <div>Price</div>
-    <div>Quantity</div>
-    <div>Delete</div>
-    `
-        
-    cartTable.appendChild(tableHeader);
-    main.appendChild(cartTable);
-    cart.forEach(el => {
-        let obj = el[0];
-        const tableRow = document.createElement('div');
-        tableRow.classList.add('orderTable__row');
-        cartTable.insertAdjacentElement('beforeend', tableRow);
-        tableRow.innerHTML = `
-        <div>${obj.name}</div>
-        <div>${"Date"}</div>
-        <div><span class="oldPrice">${obj.oldPrice}</span> ${obj.price}</div>
-        <div>${1}</div>
-        <div><img src="img/icon/delete.png" alt="delete from cart" title = "delete from cart" width = "20em" height = "20em"></div>
-        `
-    })
+function addToCart(good){
 
-    console.log(cart);
 }
+function saveOrder(){
+    const date = new Date();
+    const month = date.getMonth()+1
+    const day = date.getUTCDate();
+    const year = date.getFullYear();
+    const time = date.getHours() + ":" + date.getMinutes();
+    const orderDate = `${day}.${month}.${year} ${time}`;
+    const order = {
+        date: orderDate,
+        goods: getGoodsByParametr('id', currentGood.dataset.id)[0],
+        price: getGoodsByParametr('id', currentGood.dataset.id)[0].price,
+    }
+    if (localStorage.getItem('orders')) {
+        let orders = JSON.parse(localStorage.getItem('orders'));
+        orders.push(order);
+        localStorage.setItem('orders', JSON.stringify(orders));
+    }
+    else{
+        orders.push(order);
+        localStorage.setItem('orders', JSON.stringify(orders));
+    }
+}
+
+function updateOrders(){
+    accordion.innerHTML = "";
+    orders = JSON.parse(localStorage.getItem('orders'));
+    orders.forEach(el =>{
+        const accEl = `
+        <div class="accordion-item">
+        <h2 class="accordion-header" id="flush-headingOne">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+            <div>${el.date}</div><div>${el.price}</div>
+          </button>
+        </h2>
+        <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+          <div class="accordion-body">P${document.querySelector(`[data-id=${el.goods.id}]`)}</div>
+        </div>
+      </div>
+        `;
+    accordion.innerHTML += accEl;
+    })
+   
+}
+
+
+
+
+
 function getGoodsByParametr(param, value){
     let goods = [];
     let result = [];
@@ -345,4 +347,8 @@ function getGoodsByParametr(param, value){
         return good[param] == value;
     })
     return result;
+}
+
+function capitalizeFirstLetter(word) {
+    return word[0].toUpperCase() + word.slice(1);
 }
