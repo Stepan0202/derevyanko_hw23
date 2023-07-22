@@ -461,3 +461,9 @@ h2{
     .accordion-item::after{
         content: none;
     }
+    .deleteOrder:hover{
+        background-color: #cc0000;
+        padding: 0.5em;
+        border-radius: 15px;
+
+    }

@@ -181,12 +181,14 @@ function createCard(good){
 }
 
 function showGoods(event){
-    main.style.display = "block";
     ordersBlock.style.display = "none";
     formContainer.style.display = "none";
+    
     if (currentCategory) currentCategory.style.display = 'none';
     const id = '#' + event.target.dataset.id;
+    
     const goods = document.querySelector(id);
+    toggler(mainBoard, goods)
     currentCategory = goods;
     goods.style.display = 'grid';
     boardName.textContent = event.target.dataset.id.toUpperCase();
