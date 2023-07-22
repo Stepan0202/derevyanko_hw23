@@ -98,6 +98,8 @@ let orders = [];
 const formContainer = document.querySelector('#order');
 const form = formContainer.querySelector('form');
 const main = document.querySelector('.main');
+const mainBoard = document.querySelector('#mainBoard');
+const boardName = document.querySelector('.board_name')
 const ordersBlock = document.querySelector('#ordersBlock');
 const accordion = document.querySelector('#ordersAccordion');
 const ordersButton = document.querySelector('#ordersButton');
@@ -123,9 +125,8 @@ function createCategories(categories, parent){
 
 function createGoods(goodsList, key){
     const goodsGrid = document.createElement('section');
-    const panel = document.querySelector('.board__panel');
     const footer = document.querySelector('.board__footer');
-    panel.insertBefore(goodsGrid, footer);
+    mainBoard.insertBefore(goodsGrid, footer);
     goodsGrid.classList.add('board__goodsGrid');
     goodsList.forEach((good) => {
         const card = createCard(good);
@@ -182,11 +183,10 @@ function createCard(good){
 function showGoods(event){
     main.style.display = "block";
     ordersBlock.style.display = "none";
+    formContainer.style.display = "none";
     if (currentCategory) currentCategory.style.display = 'none';
     const id = '#' + event.target.dataset.id;
     const goods = document.querySelector(id);
-    const boardName = document.querySelector('.board_name')
-
     currentCategory = goods;
     goods.style.display = 'grid';
     boardName.textContent = event.target.dataset.id.toUpperCase();
@@ -212,7 +212,7 @@ function showOrder(fields){
     orderTable.classList.add('orderTable');
     orderTable.appendChild(currentGood);
     currentGood.style.display = "block";
-    document.querySelector('.container').appendChild(orderTable, true);
+    mainBoard.appendChild(orderTable, true);
     
     for (let i = 0; i < fields.length; i++){
         if (fields[i].type === 'submit') continue;
@@ -244,18 +244,14 @@ function showOrder(fields){
     }
 }
 function buy(event){
-    
-    // addToCart(event.target);
     event.preventDefault();
     formContainer.style.display = "block";
  
     const info = event.target.dataset.goodInfo.split(',');
     event.target.style.display = 'none';
     currentCategory.style.display = 'none';
-    main.style.display = "none";
     
     form.addEventListener('submit', validateForm);
-    // currentGood.style.display = 'none';
     
 }
 function validateForm(event){
@@ -352,6 +348,7 @@ function updateOrders(){
 
 function showOrdersHistory(){
     updateOrders();
+    boardName.textContent = "Orders history";
     if(currentCategory) currentCategory.style.display = "none";
     ordersBlock.style.display = "block"
 }
@@ -380,5 +377,12 @@ function getGoodsByParametr(param, value){
 
 function capitalizeFirstLetter(word) {
     return word[0].toUpperCase() + word.slice(1);
+}
+function toggler(container, element, display = 'block'){
+    let children = container.children;
+    for (let i = 0 ; i < children.length; i ++){
+        children[i].style.display = 'none';
+    }
+    element.style.display = display
 }
 
