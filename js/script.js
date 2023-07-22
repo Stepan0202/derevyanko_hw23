@@ -352,7 +352,7 @@ function showOrdersHistory(){
     updateOrders();
     boardName.textContent = "Orders history";
     if(currentCategory) currentCategory.style.display = "none";
-    ordersBlock.style.display = "block"
+    toggler(mainBoard, ordersBlock);
 }
 function deleteOrder(e){
     e.preventDefault();
