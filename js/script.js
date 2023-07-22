@@ -128,52 +128,55 @@ function createGoods(goodsList, key){
     panel.insertBefore(goodsGrid, footer);
     goodsGrid.classList.add('board__goodsGrid');
     goodsList.forEach((good) => {
-        const card = document.createElement('div');
-        const imgContainer = document.createElement('div');
-        const img = document.createElement('img');
-        const title = document.createElement('div');
-        const description = document.createElement('div');
-        const oldPrice = document.createElement('div');
-        const newPrice = document.createElement('div');
-        const buyButton = document.createElement('button');
-
-        card.classList.add('board__goodsCard');
-        card.classList.add('goodsCard');
-        card.appendChild(imgContainer);
-        card.appendChild(title);
-        card.appendChild(description);
-        card.appendChild(oldPrice);
-        card.appendChild(newPrice);
-        card.appendChild(buyButton);
-
-        card.dataset.id = good.id;
-        imgContainer.classList.add('imageContainer');
-        imgContainer.appendChild(img);
-        img.setAttribute('src', good.img);
-        
-        title.textContent = good.name;
-        description.textContent = good.description;
-        oldPrice.textContent = "₴" + good.oldPrice;
-        newPrice.textContent = "₴" + good.price;
-        buyButton.textContent = "Buy now";
-
-        title.classList.add('title');
-        description.classList.add('description');
-        
-        oldPrice.classList.add('oldPrice');
-        newPrice.classList.add('newPrice');
-        buyButton.classList.add('buyButton')
-        
-        goodsGrid.style.display = 'none';
-        description.style.display = 'none';
-        buyButton.style.display = 'none';
-        
+        const card = createCard(good);
         goodsGrid.appendChild(card);
         goodsGrid.setAttribute('id', key);
-        
-
-        card.addEventListener('click', showDetails);
+        goodsGrid.style.display = 'none';
     })
+}
+
+function createCard(good){
+    const card = document.createElement('div');
+    const imgContainer = document.createElement('div');
+    const img = document.createElement('img');
+    const title = document.createElement('div');
+    const description = document.createElement('div');
+    const oldPrice = document.createElement('div');
+    const newPrice = document.createElement('div');
+    const buyButton = document.createElement('button');
+
+    card.classList.add('board__goodsCard');
+    card.classList.add('goodsCard');
+    card.appendChild(imgContainer);
+    card.appendChild(title);
+    card.appendChild(description);
+    card.appendChild(oldPrice);
+    card.appendChild(newPrice);
+    card.appendChild(buyButton);
+
+    card.dataset.id = good.id;
+    imgContainer.classList.add('imageContainer');
+    imgContainer.appendChild(img);
+    img.setAttribute('src', good.img);
+    
+    title.textContent = good.name;
+    description.textContent = good.description;
+    oldPrice.textContent = "₴" + good.oldPrice;
+    newPrice.textContent = "₴" + good.price;
+    buyButton.textContent = "Buy now";
+
+    title.classList.add('title');
+    description.classList.add('description');
+    
+    oldPrice.classList.add('oldPrice');
+    newPrice.classList.add('newPrice');
+    buyButton.classList.add('buyButton')
+    
+    description.style.display = 'none';
+    buyButton.style.display = 'none';
+    
+    card.addEventListener('click', showDetails);
+    return card;
 }
 
 function showGoods(event){
@@ -320,9 +323,11 @@ function saveOrder(){
 
 function updateOrders(){
     accordion.innerHTML = "";
-    
-    orders = JSON.parse(localStorage.getItem('orders'));
+    console.log("Updating");
+    if(localStorage.getItem('orders')) orders = JSON.parse(localStorage.getItem('orders'));
+    console.log(orders);
     orders.forEach((el,index) =>{
+        let card = createCard(el.goods);
         const accEl = `
         <div class="accordion-item" style="width: 500px">
         <h2 class="accordion-header" id="flush-heading${index}">
@@ -331,7 +336,7 @@ function updateOrders(){
           </button>
         </h2>
         <div id="flush-collapse${index}" class="accordion-collapse collapse" aria-labelledby="flush-heading${index}" data-bs-parent="#accordionFlushExample">
-          <div class="accordion-body">${document.querySelector(`[data-id='${el.goods.id}']`)}</div>
+          <div class="accordion-body">${card.innerHTML}</div>
         </div>
       </div>
         `;
