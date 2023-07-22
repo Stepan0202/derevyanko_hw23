@@ -100,7 +100,7 @@ const form = formContainer.querySelector('form');
 const main = document.querySelector('.main');
 const ordersBlock = document.querySelector('#ordersBlock');
 const accordion = document.querySelector('#ordersAccordion');
-const ordersButton = document.querySelector('#ordersButton')
+const ordersButton = document.querySelector('#ordersButton');
 formContainer.style.display = "none";
 
 ordersButton.addEventListener('click', showOrdersHistory);
@@ -305,7 +305,9 @@ function saveOrder(){
     const year = date.getFullYear();
     const time = date.getHours() + ":" + date.getMinutes();
     const orderDate = `${day}.${month}.${year} ${time}`;
+    const orderId = `${day}${month}${year}${date.getTime()}`
     const order = {
+        id: orderId,
         date: orderDate,
         goods: getGoodsByParametr('id', currentGood.dataset.id)[0],
         price: getGoodsByParametr('id', currentGood.dataset.id)[0].price,
@@ -332,7 +334,7 @@ function updateOrders(){
         <div class="accordion-item" style="width: 500px">
         <h2 class="accordion-header" id="flush-heading${index}">
           <button class="accordion-button collapsed d-flex justify-content-between" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse${index}" aria-expanded="false" aria-controls="flush-collapse${index}">
-            <div>${el.date}</div> <div>${el.price}</div> <div><img src="img/icon/delete.png" width="30em" height="30em"></div>
+            <div style="margin-right: 2em">${el.date}</div> <div style="margin-right: 2em">${el.price}</div> <div class="deleteOrder" id="${el.id}"><img src="img/icon/delete.png" width="30em" height="30em"></div>
           </button>
         </h2>
         <div id="flush-collapse${index}" class="accordion-collapse collapse" aria-labelledby="flush-heading${index}" data-bs-parent="#accordionFlushExample">
@@ -342,15 +344,26 @@ function updateOrders(){
         `;
     accordion.innerHTML += accEl;
     })
-   
-}
+    let deleteOrderButtons = document.querySelectorAll('.deleteOrder');
+    for (let i = 0; i < deleteOrderButtons.length; i++){
+        deleteOrderButtons[i].addEventListener('click', deleteOrder)
+    }
+}   
 
 function showOrdersHistory(){
     updateOrders();
     if(currentCategory) currentCategory.style.display = "none";
     ordersBlock.style.display = "block"
 }
-
+function deleteOrder(e){
+    e.preventDefault();
+    const orderId = e.target.parentNode.id;
+    let newOrders = orders.filter(order=> {
+        return order.id != orderId;
+    })
+    localStorage.setItem('orders', JSON.stringify(newOrders));
+    updateOrders();
+}
 
 
 function getGoodsByParametr(param, value){
@@ -368,3 +381,4 @@ function getGoodsByParametr(param, value){
 function capitalizeFirstLetter(word) {
     return word[0].toUpperCase() + word.slice(1);
 }
+
