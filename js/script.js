@@ -356,12 +356,16 @@ function showOrdersHistory(){
 }
 function deleteOrder(e){
     e.preventDefault();
-    const orderId = e.target.parentNode.id;
-    let newOrders = orders.filter(order=> {
-        return order.id != orderId;
-    })
-    localStorage.setItem('orders', JSON.stringify(newOrders));
-    updateOrders();
+    let isDelete = confirm("Are you sure that you want delete this order from your orders history?");
+    if(isDelete){
+        const orderId = e.target.parentNode.id;
+        let newOrders = orders.filter(order=> {
+            return order.id != orderId;
+        })
+        localStorage.setItem('orders', JSON.stringify(newOrders));
+        updateOrders();
+    }
+
 }
 
 
