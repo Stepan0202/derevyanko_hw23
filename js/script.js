@@ -96,7 +96,7 @@ let currentCategory;
 let currentGood;
 let orders = [];
 const formContainer = document.querySelector('#order');
-const form = formContainer.querySelector('form');
+const form = formContainer.querySelector('#orderForm');
 const main = document.querySelector('.main');
 const mainBoard = document.querySelector('#mainBoard');
 const boardName = document.querySelector('.board_name')
@@ -247,8 +247,9 @@ function showOrder(fields){
 }
 function buy(event){
     event.preventDefault();
-    formContainer.style.display = "block";
- 
+    toggler(mainBoard, formContainer);
+    toggler(formContainer, form);
+    
     const info = event.target.dataset.goodInfo.split(',');
     event.target.style.display = 'none';
     currentCategory.style.display = 'none';

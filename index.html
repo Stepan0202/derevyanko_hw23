@@ -53,70 +53,71 @@
  
                           </div>
                     </section>
+                    <section class="order" id="order">
+                        <form action="#" method="get" id="orderForm">
+                            <label for="name" class="required sfwef">
+                                Name: <input type="text" name="name" id="name" value="test">
+                            </label>
+                            <label for="surname">
+                                Surname: <input type="text" name="surname" id="surname"> 
+                            </label>
+                            <label for="name">
+                                Last name: <input type="text" name="name" id="lastName">
+                            </label>
+                            <label for="phone" class="required">
+                                Phone: <input type="tel" name="phone" id="phone" value="test">
+                            </label>
+                            <select name="city" id="city">
+                                <option value="odesa">Odesa</option>
+                                <option value="kyiv">Kyiv</option>
+                                <option value="lviv">Lviv</option>
+                                <option value="kharkiv">Kharkiv</option>
+                                <option value="dnipro">Dnipro</option>
+                                <option value="zaporizhzhia">Zaporizhzhia</option>
+                                <option value="ivano-frankivsk">Ivano-Frankivsk</option>
+                                <option value="lutsk">Lutsk</option>
+                                <option value="mykolaiv">Mykolaiv</option>
+                                <option value="chernivtsi">Chernivtsi</option>
+                                <option value="vinnytsia">Vinnytsia</option>
+                                <option value="zhytomyr">Zhytomyr</option>
+                                <option value="rivne">Rivne</option>
+                                <option value="kherson">Kherson</option>
+                                <option value="sumy">Sumy</option>
+                                <option value="ternopil">Ternopil</option>
+                                <option value="chernihiv">Chernihiv</option>
+                                <option value="other">Other</option>
+                            </select>
+                            <label for="terminal" class="required">
+                                Nova Poshta terminal: <input type="text" name="terminal" id="terminal" value="test">
+                            </label>
+                            <p>Payment way</p>
+                            <div>
+                                    Postpaid: <input type="radio" name="payment" id="postpaid">
+                                    Card: <input type="radio" name="payment" id="card" checked>
+                            </div>
+                            <label for="quantity">
+                                Quantity: <input type="number" name="quantity" id="quantity" value="1">
+                            </label>
+                            <label for="comment">
+                                <p>Your comment</p>
+                                <textarea name="comment" id="comment"></textarea>
+                            </label>
+                            <label for="dontCall">
+                                I`m sure in my order. Don`t call me.
+                                <input type="checkbox" name="dontCall" id="dontCall">
+                            </label>
+                            <p class="error" id="error"></p>
+                            <input type="submit" value="Confirm order">
+    
+                        </form> 
+                    </section>
                 </div>
             </section>
             <section class="details">
                 <section class="info" id="info">
                 
                 </section>
-                <section class="order" id="order">
-                    <form action="#" method="get">
-                        <label for="name" class="required sfwef">
-                            Name: <input type="text" name="name" id="name" value="test">
-                        </label>
-                        <label for="surname">
-                            Surname: <input type="text" name="surname" id="surname"> 
-                        </label>
-                        <label for="name">
-                            Last name: <input type="text" name="name" id="lastName">
-                        </label>
-                        <label for="phone" class="required">
-                            Phone: <input type="tel" name="phone" id="phone" value="test">
-                        </label>
-                        <select name="city" id="city">
-                            <option value="odesa">Odesa</option>
-                            <option value="kyiv">Kyiv</option>
-                            <option value="lviv">Lviv</option>
-                            <option value="kharkiv">Kharkiv</option>
-                            <option value="dnipro">Dnipro</option>
-                            <option value="zaporizhzhia">Zaporizhzhia</option>
-                            <option value="ivano-frankivsk">Ivano-Frankivsk</option>
-                            <option value="lutsk">Lutsk</option>
-                            <option value="mykolaiv">Mykolaiv</option>
-                            <option value="chernivtsi">Chernivtsi</option>
-                            <option value="vinnytsia">Vinnytsia</option>
-                            <option value="zhytomyr">Zhytomyr</option>
-                            <option value="rivne">Rivne</option>
-                            <option value="kherson">Kherson</option>
-                            <option value="sumy">Sumy</option>
-                            <option value="ternopil">Ternopil</option>
-                            <option value="chernihiv">Chernihiv</option>
-                            <option value="other">Other</option>
-                        </select>
-                        <label for="terminal" class="required">
-                            Nova Poshta terminal: <input type="text" name="terminal" id="terminal" value="test">
-                        </label>
-                        <p>Payment way</p>
-                        <div>
-                                Postpaid: <input type="radio" name="payment" id="postpaid">
-                                Card: <input type="radio" name="payment" id="card" checked>
-                        </div>
-                        <label for="quantity">
-                            Quantity: <input type="number" name="quantity" id="quantity" value="1">
-                        </label>
-                        <label for="comment">
-                            <p>Your comment</p>
-                            <textarea name="comment" id="comment"></textarea>
-                        </label>
-                        <label for="dontCall">
-                            I`m sure in my order. Don`t call me.
-                            <input type="checkbox" name="dontCall" id="dontCall">
-                        </label>
-                        <p class="error" id="error"></p>
-                        <input type="submit" value="Confirm order">
 
-                    </form> 
-                </section>
             </section>
         </section>
     </div>
